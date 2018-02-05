@@ -526,7 +526,8 @@ class select:
             if queryOrderWaitTimeResult:
                 if "status" in queryOrderWaitTimeResult and queryOrderWaitTimeResult["status"]:
                     if "orderId" in queryOrderWaitTimeResult["data"] and queryOrderWaitTimeResult["data"]["orderId"] is not None:
-                        sendEmail("恭喜您订票成功，订单号为：{0}, 请立即打开浏览器登录12306，访问‘未完成订单’，在30分钟内完成支付！".format(queryOrderWaitTimeResult["data"]["orderId"]))
+                        order_detail = "[{}] [{}->{}] [{}]".format(','.join(self.station_dates), self.from_station, self.to_station, ','.join(self.ticke_peoples))
+                        sendEmail("恭喜您订票成功，订单号为：{0}\n{1}\n请立即打开浏览器登录12306，访问‘未完成订单’，在30分钟内完成支付！".format(queryOrderWaitTimeResult["data"]["orderId"], order_detail))
                         raise ticketIsExitsException("恭喜您订票成功，订单号为：{0}, 请立即打开浏览器登录12306，访问‘未完成订单’，在30分钟内完成支付！".format(queryOrderWaitTimeResult["data"]["orderId"]))
                     elif "msg" in queryOrderWaitTimeResult["data"] and queryOrderWaitTimeResult["data"]["msg"]:
                         print queryOrderWaitTimeResult["data"]["msg"]
